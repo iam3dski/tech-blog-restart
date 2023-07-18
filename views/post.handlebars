@@ -1,44 +1,113 @@
-{{> post-details}}
-{{#if logged_in}}
-  {{#if comments.length}}
-    <section>
-      <div class='card'>
-        <div class='card-header secondary'>
-          <h2>Comments</h2>
+<div class="main-content">
+  <div class="hero">
+    <h1>{{post.post_title}}</h1>
+  </div>
+  <input type="hidden" id="user-id" name="user-id" value="{{logged_in_id}}" />
+  <div class="ui card">
+    <a href="/" class="ui positive basic button">Back</a>
+  </div>
+  {{#if logged_in}}
+    <div class="ui card">
+      <div class="content">
+        <div class="right floated meta"><strong>{{formatDate post.post_date}}</strong></div>
+        <p><strong>Posted by:</strong>&nbsp;<a href="mailto:{{post.user.email}}">{{post.user.user_name}}</a></p>
+        <p>{{post.post_content}}</p>
+      </div>
+      <div class="content comments-length">
+        <i class="comment icon"></i>
+        {{post.Comments.length}} comments
+      </div>
+      <div class="content show-hide">
+        <div class="row align-center mb-5">
+          <div class="comment-btn-wrapper" onclick="toggleComments(this,{{post.id}})">
+            <h3 class="ui show-btn">
+              <i class="caret square down outline icon" style="visibility: visible;"></i>
+              Show Comments
+            </h3>
+            <h3 class="ui hide-btn hidden">
+              <i class="caret square up outline icon" style="visibility: visible;"></i>
+              Hide Comments
+            </h3>
+          </div>
         </div>
-        <div class='card-content'>
-          {{#each comments as |comment|}}
-            <div class='card comment'>
-              <div class='card-header dark'>
-                <h2>{{title}}</h2>
-                <div class='post-detail'>Posted by
-                  {{comment.user.name}}
-                  on
-                  {{format_date comment.date_created}}
-                </div>
+      </div>
+      <div class="content ui comments hide-btn hidden" id="comments-wrapper-{{post.id}}">
+        {{#each post.Comments as |comment|}}
+          <div class="comment">
+            <div class="content">
+              <a class="author">{{comment.user.user_name}}</a>
+              <div class="metadata">
+                <div class="date">{{formatDate comment.comment_date}}</div>
               </div>
-              <div class='card-content'>
-                {{comment.comment}}
+              <div class="text">
+                {{comment.comment_content}}
               </div>
             </div>
-          {{/each}}
-        </div>
-      </div>
-    </section>
-  {{/if}}
-  <section>
-    <div class='card'>
-      <div class='card-header'>
-        <h2>Add a Comment</h2>
-      </div>
-      <div class='card-content'>
-        <form class='comment-form'>
-          <textarea name='comment-content' id='comment-text'></textarea>
-          <button type='submit' class='card-button'>Add Comment</button>
+          </div>
+        {{/each}}
+        <form class="ui reply form">
+          <div class="field">
+            <textarea id="comment-content" required></textarea>
+          </div>
+          <div class="ui primary submit labeled icon button" onclick="addComment(event,{{post.id}})">
+            <i class="icon edit"></i> Add Reply
+          </div>
         </form>
       </div>
     </div>
-  </section>
-{{/if}}
-
-<script src='/assets/js/comment.js'></script>
+  {{else}}
+    <div class="ui card">
+      <div class="content">
+        <div class="right floated meta"><strong>{{formatDate post.post_date}}</strong></div>
+        <p><strong>Posted by:</strong>&nbsp;<a href="mailto:{{post.user.email}}">{{post.user.user_name}}</a></p>
+        <p>{{post.post_content}}</p>
+      </div>
+      <div class="content comments-length">
+        <i class="comment icon"></i>
+        {{#if post.Comments.length}}
+          {{post.Comments.length}} comments
+        {{else}}
+          0 comments
+        {{/if}}
+      </div>
+      <div class="content show-hide">
+        <div class="row align-center mb-5">
+          <div class="comment-btn-wrapper" onclick="toggleComments(this,{{post.id}})">
+            <h3 class="ui show-btn">
+              <i class="caret square down outline icon" style="visibility: visible;"></i>
+              Show Comments
+            </h3>
+            <h3 class="ui hide-btn hidden">
+              <i class="caret square up outline icon" style="visibility: visible;"></i>
+              Hide Comments
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="content ui comments hide-btn hidden" id="comments-wrapper-{{post.id}}">
+        {{#each post.Comments as |comment|}}
+          <div class="comment">
+            <div class="content">
+              <a class="author">{{comment.User.user_name}}</a>
+              <div class="metadata">
+                <div class="date">{{formatDate comment.comment_date}}</div>
+              </div>
+              <div class="text">
+                {{comment.comment_content}}
+              </div>
+            </div>
+          </div>
+        {{/each}}
+        <form class="ui reply form">
+          <div class="field">
+            <textarea id="comment-content" disabled></textarea>
+          </div>
+          <p>You must be logged in to reply.</p>
+          <a href="/login" class="ui primary button">
+            Login
+          </a>
+        </form>
+      </div>
+    </div>
+  {{/if}}
+</div>

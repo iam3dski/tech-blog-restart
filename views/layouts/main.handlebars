@@ -6,32 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Blog</title>
   <link rel="stylesheet" href="/assets/css/style.css">
-    <title>Home</title>
+    <title>{{title}}</title>
   </head>
-<body>
-  <div class="flex-column justify-space-around">
-    <!-- HEADER -->
-    <header>
-      <!-- NAVIGATION -->
-      <nav>
-        <span><a href="/">Home</a></span>
-        {{#if logged_in}}
-        <span><a href="/dashboard">Dashboard</a></span>
-        <span><a href="/logout">Log out</a></span>
-        {{else}}
-        <span><a href="/login">Log in</a></span>
-        <span><a href="/signup">Sign up</a></span>
-        {{/if}}
-      </nav>
-      <h1>Tech Blog</h1>
-    </header>
-    <!-- MAIN -->
-    <main>
-      {{{ body }}} <!-- this is where the body of the page will be rendered -->
-    </main>
-    <!-- FOOTER -->
-    <footer>
-      <p>&copy; 2023 Tech Blog</p>
-    </footer>
+ <body>
+    {{> header}}
+    {{{body}}}
+    {{> footer}}
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/semantic/dist/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    {{#if logged_in}}
+      <script src="/js/logout.js"></script>
+    {{/if}}
   </body>
 </html>
