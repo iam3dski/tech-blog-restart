@@ -1,24 +1,14 @@
-<div class="ui inverted vertical masthead center aligned segment navbar">
-  <div class="ui container">
-    <div class="ui large secondary inverted pointing menu">
-      <div class="header item">
-        <i class="file code icon" style="visibility: visible;"></i>&nbsp;&nbsp;Tech Blog
-      </div>
-      <a href="/" class="{{isActive '/'}} item">
-        Home
-      </a>
-      <a href="/dashboard" class="{{isActive '/dashboard'}} item">
-        Dashboard
-      </a>
-      {{#if logged_in}}
-        <a href="javascript:void(0)" id="logout" class="{{isActive '/logout'}} item">
-          Logout
-        </a>
-      {{else}}
-        <a href="/login" class="{{isActive '/login'}} item">
-          Login
-        </a>
-      {{/if}}
-    </div>
-  </div>
-</div>
+{{#if logged_in}}
+  <nav>
+  <a class="no-button" href="/">Home</a>
+  <a class="no-button" href="/dashboard">Dashboard</a>  
+  <button class="no-button" id="logout">logout</button>        
+</nav>
+
+{{else}}
+  <nav>
+  <a class="no-button" href="/">Home</a>
+  <a class="no-button" href="/dashboard">Dashboard</a> 
+  <a class="no-button" href="/login">login</a>        
+</nav>
+{{/if}}

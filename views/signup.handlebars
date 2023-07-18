@@ -1,29 +1,28 @@
-<!-- CARD -->
-<div class='card'>
-  <div class='card-header'>
+<div class="row">
+  <div class="access-border">
     <h2>Signup</h2>
-  </div>
-  <div class='card-content'>
-    <div class='center'>
-      Create an account to post comments.
-    </div>
-    <form class="signup-form">
-      <label for='name'>Name:</label><br />
-      <input type='text' id='name' />
-      <label for='email'>Email:</label><br />
-      <input type='text' id='email' />
-      <label for='password'>Password:</label><br />
-      <input type='password' id='password' />
-      <button type='submit' class='card-button'>Create an account</button>
+  <div class="access-signup">  
+
+    <form class="form signup-form">
+      <div class="form-group">
+        <label for="name-signup">Username:</label>
+        <input class="form-input" type="text" id="name-signup" />
+      </div>
+      <div class="form-group">
+        <label for="email-signup">Email:</label>
+        <input class="form-input" type="text" id="email-signup" />
+      </div>
+      <div class="form-group">
+        <label for="password-signup">Password:</label>
+        <input class="form-input" type="password" id="password-signup" />
+      </div>
+      <div class="form-group">
+        <button class="btn-access btn btn-primary" type="submit">Sign Up</button>
+      </div>
+       <a href="/login">Already have and account? Login instead</a>
     </form>
-    <div class='center pb'>
-      Already have an account?&nbsp;<a href='/login'>Log in</a>
-    </div>
-    <div class='center'>
-      By creating an account you agree to our
-      <a href='#'>Terms & Privacy</a>.
-    </div>
+  </div>
   </div>
 </div>
 
-<script src="./assets/js/signup.js"></script>
+<script src="./js/login.js"></script>

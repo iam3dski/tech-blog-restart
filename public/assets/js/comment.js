@@ -1,121 +1,46 @@
-const addComment = async (event) => {
+// Event handler for creating a new comment
+const newCommentHandler = async (event) => {
   event.preventDefault();
 
-  const postId = window.location.toString().split('/').pop();
-  const commentContent = document.querySelector('#comment-content').value.trim();
+  // Get the comment description from the form input
+  const description = document.querySelector('#Comment').value.trim();
+  const data = document.querySelector('#Comment');
 
-  if (commentContent) {
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      body: JSON.stringify({ postId, commentContent }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  if (description) {
+    try {
+      // Send a POST request to create a new comment
+      const response = await fetch('/api/comment/', {
+        method: 'POST',
+        body: JSON.stringify({
+          description,
+          user_id: data.dataset.uid,
+          post_id: data.dataset.bid,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (response.ok) {
-      document.location.reload();
-    } else {
-      alert('Failed to add comment');
+      if (response.ok) {
+        // If successful, redirect to the post view page
+        document.location.replace(`/post/view/${data.dataset.bid}`);
+      } else {
+        // Display an alert if the request fails
+        alert('Failed to create comment');
+      }
+    } catch (error) {
+      console.error('Error creating comment:', error);
+      alert('Failed to create comment');
     }
   }
 };
 
-const commentForm = document.querySelector('#comment-form');
-if (commentForm) {
-  commentForm.addEventListener('submit', addComment);
-}
-
-const commentFormHandler = async (event) => {
-  event.preventDefault();
-
-  const comment = document.querySelector('#comment-text').value.trim();
-  const url = window.location.href;
-  const postId = url.substring(url.lastIndexOf('/') + 1);
-
-  if (comment && postId) {
-    const response = await fetch('/api/comments', {
-      method: 'POST',
-      body: JSON.stringify({ comment, postId }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      document.location.reload();
-    } else {
-      alert(response.statusText);
-    }
+try {
+  // Attach the new comment event handler to the comment form submission
+  const commentForm = document.querySelector('.comment-form');
+  if (commentForm) {
+    commentForm.addEventListener('submit', newCommentHandler);
   }
-};
-
-const editPostBtnNavHandler = async (event) => {
-  event.preventDefault();
-  const url = window.location.href;
-  const id = url.substring(url.lastIndexOf('/') + 1);
-  document.location.replace(`/edit/${id}`);
-};
-
-const editPostHandler = async (event) => {
-  event.preventDefault();
-
-  const title = document.querySelector('#post-title').value.trim();
-  const content = document.querySelector('#post-content').value.trim();
-  const url = window.location.href;
-  const postId = url.substring(url.lastIndexOf('/') + 1);
-
-  if (title && content && postId) {
-    const response = await fetch(`/api/post/${postId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ title, content }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      document.location.replace(`/post/${postId}`);
-    } else {
-      alert(response.statusText);
-    }
-  }
-};
-
-const deletePostHandler = async (event) => {
-  event.preventDefault();
-
-  const url = window.location.href;
-  const postId = url.substring(url.lastIndexOf('/') + 1);
-
-  const response = await fetch(`/api/post/${postId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  if (response.ok) {
-    document.location.replace('/dashboard');
-  } else {
-    alert(response.statusText);
-  }
-};
-
-const commentForm = document.querySelector('.comment-form');
-if (commentForm) {
-  commentForm.addEventListener('submit', commentFormHandler);
-}
-
-const editPostBtn = document.querySelector('.edit-post');
-const deletePostBtn = document.querySelector('.delete-post');
-const editPostForm = document.querySelector('.update-post-form');
-
-if (editPostBtn && deletePostBtn) {
-  editPostBtn.addEventListener('click', editPostBtnNavHandler);
-  deletePostBtn.addEventListener('click', deletePostHandler);
-}
-
-if (editPostForm) {
-  editPostForm.addEventListener('submit', editPostHandler);
+} catch (error) {
+  console.error('Error attaching event handler:', error);
 }

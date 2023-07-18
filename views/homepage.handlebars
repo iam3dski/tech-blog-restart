@@ -1,26 +1,19 @@
-<div class="main-content">
-  <div class="hero">
-    <h1>Embrace the Future of Technology<br />Uncover the Latest Insights in Tech Blogs</h1>
+<div> 
+{{#each posts as |post| }}
+<div class="col mb-5 post">
+  <div class="post-header">
+    <div>
+      <a class="no-button" href="/post/{{post.id}}">{{post.title}}</a> 
+    </div>
+    <div style="text-align: end;font-size:0.75rem">
+      Posted by {{post.user.name}} on {{format_date post.date_created}}
+    </div>
   </div>
-  <input type="hidden" id="user-id" name="user-id" value="{{logged_in_id}}" />
-  {{#if logged_in}}
-    {{#each posts as |post| }}
-      <div class="ui card">
-        <a href="/posts/{{post.id}}" class="content main-title">
-          <div class="right floated meta">{{formatDate post.post_date}}</div>
-          <h2>{{post.post_title}}</h2>
-        </a>
-      </div>
-    {{/each}}
-  {{else}}
-    {{#each posts as |post| }}
-      <div class="ui card">
-        <a href="/posts/{{post.id}}" class="content main-title">
-          <div class="right floated meta">{{formatDate post.post_date}}</div>
-          <h2>{{post.post_title}}</h2>
-        </a>
-      </div>
-    {{/each}}
-  {{/if}}
+  <div class="post-content">
+     <p>
+      {{post.description}}
+    </p>
   </div>
+</div>
+{{/each}}
 </div>

@@ -1,28 +1,67 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
-  // Get the login form inputs
-  const email = document.querySelector('#email-input').value.trim();
-  const password = document.querySelector('#password-input').value.trim();
+  // Collect values from the login form
+  const email = document.querySelector('#email-login').value.trim();
+  const password = document.querySelector('#password-login').value.trim();
 
   if (email && password) {
-    // Send a POST request to the server with the login credentials
-    const response = await fetch('/api/users/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+      // Send a POST request to the API endpoint
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    if (response.ok) {
-      // If login is successful, redirect to the dashboard page
-      document.location.replace('/dashboard');
-    } else {
-      // If login fails, display an error message
-      const errorMessage = await response.json();
-      alert(errorMessage.message);
+      if (response.ok) {
+        // If successful, redirect the browser to the profile page
+        document.location.replace('/dashboard');
+      } else {
+        // Display an alert if the request fails
+        alert(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      alert('Failed to log in');
     }
   }
 };
 
-// Attach the loginFormHandler to the login form submit event
-document.querySelector('#login-form').addEventListener('submit', loginFormHandler);
+const signupFormHandler = async (event) => {
+  event.preventDefault();
+
+  const name = document.querySelector('#name-signup').value.trim();
+  const email = document.querySelector('#email-signup').value.trim();
+  const password = document.querySelector('#password-signup').value.trim();
+
+  if (name && email && password) {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        document.location.replace('/dashboard');
+      } else {
+        alert(response.statusText);
+      }
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Failed to sign up');
+    }
+  }
+};
+
+try {
+  const btnAccess = document.querySelector('.btn-access');
+  if (btnAccess && btnAccess.textContent.toLowerCase() === 'login!') {
+    document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+  } else {
+    document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
+  }
+} catch (error) {
+  console.error('Error attaching event handler:', error);
+}

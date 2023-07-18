@@ -1,0 +1,42 @@
+<div>
+
+<div class="col mb-5 post">
+  <div class="post-header" >
+    <div>
+      <a class="no-button" href="/post/{{id}}">{{title}}</a> 
+    </div>
+    <div style="text-align: end;">
+      Posted by {{user.name}} on {{format_date date_created}}
+    </div>
+  </div>
+  <div class="post-content">
+     <p>
+      {{description}}
+    </p>
+  </div>
+</div>
+
+
+{{#each comments as |comment| }}
+
+<div class="access-border " style="margin:1rem 0rem;">
+  <div class="post-header" ></div>{{!-- header styling to match other comment areas--}}
+ 
+<div class="access-login comment" style="padding-top:0.8rem">
+    
+
+        <label>{{comment.description}}</label>{{!-- content of the comment--}}
+        <br>
+        <label>--{{comment.user.name}} , {{format_date comment.date_created}}</label>{{!-- name and date of when person placed comment --}}
+        
+      </div>
+     
+   
+  </div>
+   
+{{/each}}
+{{!-- <div class="row"> --}}
+
+</div>
+{{!-- </div> --}}
+

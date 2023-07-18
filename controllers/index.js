@@ -1,8 +1,7 @@
 // initialize variables
 const router = require('express').Router(),
       apiRoutes = require('./api'),
-      appRoutes = require('./appRoutes');
-      
+      appRoutes = require('./homeRoutes')
 // set the route path for appRoutes
 router.use('/', appRoutes);
 // set the route path for apiRoutes

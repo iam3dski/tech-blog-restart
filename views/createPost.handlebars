@@ -1,0 +1,33 @@
+<div class="row">
+<div class="access-border">
+  {{#if id}}
+    <h2>Edit Post</h2>
+  {{else}}
+    <h2>Create New Post</h2>
+  {{/if}}
+  
+<div class="access-login">  
+    <form class="form {{#if id}}edit-form{{else}}create-form{{/if}}">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-input" type="text" id="title" value="{{title}}"/>
+      </div>
+      <div class="form-group">
+        <label for="description">Content</label>
+        <textarea class="form-input" type="text" rows="3" id="description">{{description}}</textarea>
+      </div>
+      {{#if id}}
+      <div class="form-group">
+        <button class="btn-access btn btn-primary" data-id="{{id}}" type="submit">Edit Post!</button>
+
+        <button class="btn-access btn btn-primary delete" style="margin-top:0.5rem" data-id="{{id}}">Delete Post!</a>
+      </div>
+      {{else}}
+      <div class="form-group">
+        <button class="btn-access btn btn-primary" type="submit">Create Post!</button>
+      </div>
+      {{/if}}  
+    </form>
+  </div>
+  </div>  
+</div>

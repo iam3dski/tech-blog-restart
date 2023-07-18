@@ -1,35 +1,24 @@
 const router = require('express').Router();
-const { Users, Comment } = require('../../models');
+const { Post, User, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-router.post('/add', async (req, res) => {
+// Route for fetching all comments
+router.get('/', async (req, res) => {
+ });
+
+// Route for creating a new comment
+router.post('/', async (req, res) => {
   try {
-    const newComment = await Comment.create({
-      comment_content: req.body.comment_content,
-      user_id: req.body.user_id,
-      post_id: req.body.post_id
+    const comment = await Comment.create({
+      ...req.body,
+      user_id: req.session.user_id, // Assigns the current user's ID to the comment's user_id
     });
 
-    const foundComment = await Comment.findByPk(newComment.id);
-
-    res.status(200).json({ comment: foundComment, message: 'Comment added successfully.' });
+    res.status(200).json(comment);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(400).json(err);
   }
 });
 
-router.get('/getComments/:blogId', async (req, res) => {
-  try {
-    const { blogId } = req.params;
-
-    const commentsData = await Comment.findAll({
-      where: { post_id: blogId },
-      include: [{ model: Users, attributes: ['user_name'] }],
-    });
-
-    res.status(200).json(commentsData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
+// Exporting the router module
 module.exports = router;

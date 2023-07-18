@@ -2,11 +2,13 @@
   "name": "tech-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "seed": "node seeds/seed.js"
   },
+  "author": "Dylan Wednieski",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^7.1.6",
