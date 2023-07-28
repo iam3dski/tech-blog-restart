@@ -16,13 +16,9 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
-      // will only allow alphanumeric characters
-      validate: {
-        isAlphanumeric: true,
-      },
     },
     email: {
       type: DataTypes.STRING,
@@ -35,7 +31,6 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      // must be longer than 8 characters
       validate: {
         len: [8],
       },

@@ -56,11 +56,15 @@ const signupFormHandler = async (event) => {
 };
 
 try {
-  const btnAccess = document.querySelector('.btn-access');
-  if (btnAccess && btnAccess.textContent.toLowerCase() === 'login!') {
-    document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
-  } else {
-    document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
+  const loginForm = document.querySelector('.login-form');
+  const signupForm = document.querySelector('.signup-form');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', loginFormHandler);
+  }
+
+  if (signupForm) {
+    signupForm.addEventListener('submit', signupFormHandler);
   }
 } catch (error) {
   console.error('Error attaching event handler:', error);

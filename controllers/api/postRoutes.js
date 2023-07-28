@@ -41,13 +41,18 @@ router.get('/:id', withAuth, async (req, res) => {
 // Route for creating a new post
 router.post('/', async (req, res) => {
   try {
+    console.log('Received request data:', req.body); // Log the received request data
+
     const newPost = await Post.create({
       ...req.body,
       user_id: req.session.user_id,
     });
 
+    console.log('Created post:', newPost); // Log the created post object
+
     res.status(200).json(newPost);
   } catch (err) {
+    console.error('Error creating post:', err); // Log any errors that occur
     res.status(400).json(err);
   }
 });

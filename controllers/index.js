@@ -1,11 +1,9 @@
-// initialize variables
-const router = require('express').Router(),
-      apiRoutes = require('./api'),
-      appRoutes = require('./homeRoutes')
-// set the route path for appRoutes
-router.use('/', appRoutes);
-// set the route path for apiRoutes
+const router = require('express').Router();
+
+const apiRoutes = require('./api');
+const homeRoutes = require('./homeRoutes');
+
+router.use('/', homeRoutes);
 router.use('/api', apiRoutes);
 
-// export the routes
 module.exports = router;
