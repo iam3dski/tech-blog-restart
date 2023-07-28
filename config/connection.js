@@ -10,20 +10,20 @@ if (process.env.DATABASE_URL) {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // For self-signed certificates
-      }
-    }
+        rejectUnauthorized: false, // For self-signed certificates
+      },
+    },
   });
 } else {
-  // Your local development configuration here
+  // Local development configuration
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
-      host: 'localhost', // Update this to your local MySQL host if needed
+      host: 'localhost',
       dialect: 'mysql',
-      port: 3306
+      port: 3306,
     }
   );
 }
